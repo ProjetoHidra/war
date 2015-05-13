@@ -240,8 +240,7 @@ public class Command {
 				call = new Git(hidra.getGit().getRepository()).branchList()
 						.call();
 			} catch (GitAPIException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                            System.err.print(e);
 			}
 
 			// repensar mostrar ou não o id do branch
@@ -534,12 +533,11 @@ public class Command {
             return url != null;
         }
         
-        public boolean merge() throws IOException, GitAPIException{
+        public boolean merge(String branch) throws IOException, GitAPIException{
            MergeCommand mgCmd = hidra.getGit().merge();
            
-           mgCmd.include(hidra.getGit().getRepository().getRef("master")); // I think "foo" is considered as a Ref to a branch
-           MergeResult res = mgCmd.call(); // actually do the merge
-
+           mgCmd.include(hidra.getGit().getRepository().getRef(branch)); 
+           MergeResult res = mgCmd.call(); 
             if (res.getMergeStatus().equals(MergeResult.MergeStatus.CONFLICTING)){
             System.out.println(res.getConflicts().toString());
             }

@@ -27,7 +27,7 @@ public interface IHidra {
     public boolean Logs();
     
     @WebMethod
-    public boolean Branch();
+    public boolean showBranch();
     
     @WebMethod
     public boolean createBranch(@WebParam(name = "nameBranch")String nameBranch);
@@ -58,4 +58,7 @@ public interface IHidra {
     
     @WebMethod
     public boolean hasRemoteRepository();
+    
+    @WebMethod
+    public boolean mergeWithoutConflicts(@WebParam (name="branch") String branch);
 }

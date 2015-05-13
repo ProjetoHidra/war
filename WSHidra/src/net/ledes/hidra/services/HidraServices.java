@@ -2,6 +2,8 @@ package net.ledes.hidra.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -108,6 +110,7 @@ public class HidraServices implements IHidra{
 	}
 
 	@WebMethod
+        @Override
 	public boolean Logs() {
 		boolean ret = false;
 
@@ -122,7 +125,8 @@ public class HidraServices implements IHidra{
 	}
 
 	@WebMethod
-	public boolean Branch() {
+        @Override
+	public boolean showBranch() {
 		boolean ret = false;
 
 		try {
@@ -241,5 +245,21 @@ public class HidraServices implements IHidra{
         return commands.unSetConfigRemote(); 
     }
     
+
+    @Override
+    @WebMethod
+    public boolean mergeWithoutConflicts(@WebParam (name="branch") String branch){
+    
+    
+            try {
+                return commands.merge(branch);
+            } catch (IOException ex) {
+                Logger.getLogger(HidraServices.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (GitAPIException ex) {
+                Logger.getLogger(HidraServices.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return false;
+    }
 
 }

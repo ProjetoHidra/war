@@ -77,6 +77,12 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>3.6.2.201501210735-r</version>
 		</dependency>
+                
+                <dependency>
+                            <groupId>com.googlecode.java-diff-utils</groupId>
+                            <artifactId>diffutils</artifactId>
+                            <version>1.2.1</version>
+                </dependency>
 
 	</dependencies>
 </project>
