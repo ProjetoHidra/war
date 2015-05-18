@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.jws.WebMethod;
+
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.MergeCommand;
@@ -197,7 +197,7 @@ public class Command {
             System.err.println("Repository uninitialized");
         } else {
 
-			// Repository repository1 = git1.getRepository();
+            // Repository repository1 = git1.getRepository();
             //ObjectId head = repository1.resolve("HEAD");
             Iterable<RevCommit> log = null;
             try {
@@ -230,19 +230,21 @@ public class Command {
         return logs;
     }
 
-   
     public boolean showBranches() {
         if (hidra == null) {
             System.err.println("Repository uninitialized");
         } else {
             try {
-
+                System.out.println("Branches: ");
                 for (org.eclipse.jgit.lib.Ref ref : hidra.getGit().branchList().call()) {
-                    System.out.println("Branch: " + ref.getName());
-                    
+                    System.out.println(ref.getName());
+
                 }
+                System.out.println("Current Branch: " + hidra.getGit().getRepository().getBranch());
                 return true;
             } catch (GitAPIException ex) {
+                Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -535,20 +537,17 @@ public class Command {
     public boolean checkout(String branch) {
 
        
-        System.out.println(hidra.getGit().checkout().getRepository().getDirectory());
         try {
             hidra.getGit().checkout().setName(branch).call();
-            System.out.println(hidra.getGit().checkout().getRepository().getBranch());
+           
 
             return true;
         } catch (GitAPIException ex) {
             Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // hidra.getGit().branchList().call();
-        return false;
 
+            return false;
+
+        }
     }
 
     public boolean checkoutCreateBranch(String branch) {
@@ -562,4 +561,70 @@ public class Command {
         }
         return false;
     }
-}
+    
+    public boolean createLightTag(String tagName, String tagMsg){
+        
+        try {
+            hidra.getGit().tag().setName(tagName).setMessage(tagMsg).call();
+            return true;
+        } catch (GitAPIException ex) {
+            Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    
+    
+    }
+    
+    public boolean createAnnotatedTag(String tagName, String tagMgs){
+    
+        try {
+            hidra.getGit().tag().setName(tagName).setAnnotated(true).setMessage(tagName).call();
+            return true;
+        } catch (GitAPIException ex) {
+            Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return false;
+    }
+    
+    public boolean listTags(){
+        try {
+            for (org.eclipse.jgit.lib.Ref ref :hidra.getGit().tagList().call()) {
+                
+                System.out.println(ref.getName());
+                
+                
+            }
+            
+            System.out.println(hidra.getGit().getRepository().getTags());       
+            
+           
+            return true;
+        } catch (GitAPIException ex) {
+            Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    return false;
+    }
+    
+    
+    public boolean tagDelete(String nameTags){
+        try {
+            hidra.getGit().tagDelete().setTags(nameTags).call();
+            return true;
+        } catch (GitAPIException ex) {
+            Logger.getLogger(Command.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+     
+   
+        return false;
+    }
+    
+    public boolean showTag(String nameTag){
+        
+        System.out.println(hidra.getGit().getRepository().getTags());
+        return true;
+    
+    }
+    
+}   

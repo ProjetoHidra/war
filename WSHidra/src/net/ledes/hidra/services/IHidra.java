@@ -64,4 +64,16 @@ public interface IHidra {
     
     @WebMethod 
     public boolean checkout(@WebParam (name ="branch") String branch);
+    
+    @WebMethod
+    public boolean createLightTag(@WebParam(name = "nameTag") String nameTag, @WebParam(name = "msgTag") String msgTag);
+    
+    @WebMethod
+    public boolean createAnnotatedTag(@WebParam(name = "nameTag") String nameTag, @WebParam(name = "msgTag") String msgTag);
+    
+    @WebMethod
+    public boolean deleteTags(@WebParam (name = "nameTag") String nameTag);
+    
+    @WebMethod
+    public boolean listTags();
 }

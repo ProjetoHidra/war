@@ -268,4 +268,26 @@ public class HidraServices implements IHidra{
         return commands.checkout(branch);
     
     }
+
+    @Override
+    public boolean createLightTag(String nameTag, String msgTag) {
+       return commands.createLightTag(nameTag, msgTag);
+    }
+
+    @Override
+    public boolean createAnnotatedTag(String nameTag, String msgTag) {
+       return commands.createAnnotatedTag(nameTag, msgTag);
+    }
+
+    @Override
+    public boolean deleteTags(String nameTag) {
+        return commands.tagDelete(nameTag);
+    }
+
+    @Override
+    public boolean listTags() {
+       return commands.listTags();
+    }
+    
+    
 }
