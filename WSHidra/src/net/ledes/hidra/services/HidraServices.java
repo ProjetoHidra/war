@@ -111,7 +111,7 @@ public class HidraServices implements IHidra{
 
 	@WebMethod
         @Override
-	public boolean Logs() {
+	public boolean logs() {
 		boolean ret = false;
 
 		try {
@@ -126,14 +126,14 @@ public class HidraServices implements IHidra{
 
 	@WebMethod
         @Override
-	public boolean showBranch() {
+	public boolean showBranches() {
 		boolean ret = false;
 
 		try {
-			System.out.println(commands.showBranch());
+			commands.showBranches();
 			ret = true;
 		} catch (Exception e) {
-			System.err.println("Error during Branch process");
+			System.err.println("Error during Show Branches process");
 		}
 
 		return ret;
@@ -141,6 +141,7 @@ public class HidraServices implements IHidra{
 	}
 
 	@WebMethod
+        @Override
 	public boolean createBranch(@WebParam(name = "nameBranch") String nameBranch) {
 		boolean ret = false;
 
@@ -262,4 +263,9 @@ public class HidraServices implements IHidra{
             return false;
     }
 
+    @Override
+    public boolean checkout(@WebParam (name="branch")String branch){
+        return commands.checkout(branch);
+    
+    }
 }

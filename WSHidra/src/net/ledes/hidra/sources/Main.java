@@ -5,7 +5,7 @@
  */
 package net.ledes.hidra.sources;
 
-import difflib.Chunk;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;

@@ -24,10 +24,10 @@ public interface IHidra {
     public boolean status();
     
     @WebMethod
-    public boolean Logs();
+    public boolean logs();
     
     @WebMethod
-    public boolean showBranch();
+    public boolean showBranches();
     
     @WebMethod
     public boolean createBranch(@WebParam(name = "nameBranch")String nameBranch);
@@ -61,4 +61,7 @@ public interface IHidra {
     
     @WebMethod
     public boolean mergeWithoutConflicts(@WebParam (name="branch") String branch);
+    
+    @WebMethod 
+    public boolean checkout(@WebParam (name ="branch") String branch);
 }
